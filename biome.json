@@ -1,0 +1,36 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.5.3/schema.json",
+  "linter": {
+    "ignore": [
+      "dist",
+      "node_modules",
+      ".env*",
+      ".nvmrc",
+      ".npmrc",
+      ".gitignore"
+    ],
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "style": {
+        "useImportType": "off"
+      }
+    }
+  },
+  "formatter": {
+    "indentStyle": "space",
+    "ignore": [
+      "dist",
+      "node_modules",
+      ".env*",
+      ".nvmrc",
+      ".npmrc",
+      ".gitignore"
+    ]
+  },
+  "javascript": {
+    "parser": {
+      "unsafeParameterDecoratorsEnabled": true
+    }
+  }
+}

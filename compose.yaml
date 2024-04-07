@@ -1,0 +1,57 @@
+services:
+  auth:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: development
+    command: sh -c "pnpm run db:migrate:dev && pnpm run dev"
+    env_file:
+      - ./.env
+    restart: on-failure
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "4001:4001"
+    networks:
+      - main-network
+
+  mailing:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: development
+    command: pnpm run dev mailing
+    env_file:
+      - ./.env
+    restart: on-failure
+    depends_on:
+      - auth
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "4002:4002"
+      - "4003:4003"
+    networks:
+      - main-network
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - "./mnt/postgresql:/var/lib/postgresql"
+    networks:
+      - main-network
+
+networks:
+  main-network:
+    driver: bridge
