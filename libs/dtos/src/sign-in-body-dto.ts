@@ -1,7 +1,7 @@
 import {
   IsEmail,
   IsNotEmpty,
-  // Matches,
+  Matches,
   MaxLength,
   MinLength,
 } from "class-validator";
@@ -13,8 +13,9 @@ export class SignInBodyDTO {
   @IsNotEmpty()
   @MaxLength(16)
   @MinLength(8)
-  // @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
-  //   message: "Password is weak.",
-  // })
+  // min 8 length, max 16 length, at least: one upper and lower letter, one digit, one special character
+  @Matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/, {
+    message: "Password is weak.",
+  })
   public readonly password: string;
 }
