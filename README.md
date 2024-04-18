@@ -20,4 +20,4 @@ Simply run `pnpm run compose` to run all services and Prisma migrations using Do
 
 Authentication service is running on port **4001** by default (set `AUTH_PORT` and check your `.env` file)
 
-For more, read about it here: https://blog-jelhouss.vercel.app/posts/nest-ms
+For more, read about it here: https://www.jh.tn/posts/nest-ms
